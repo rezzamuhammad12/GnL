@@ -67,14 +67,10 @@ class Menu extends CI_Controller
         }
     }
 
-    public function edit($id)
+    public function edit()
     {
         $data['title'] = 'Edit Menu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $data['menu'] = $this->Menu_model->getMenuById($id);
-
-        $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -85,7 +81,10 @@ class Menu extends CI_Controller
             $this->load->view('menu/index', $data);
             $this->load->view('templates/footer');
         } else {
-            $this->Menu_model->editMenu();
+            $this->db->set('menu', htmlspecialchars($this->input->post('menu')));
+            $this->db->where('id', htmlspecialchars($this->input->post('id')));
+            $this->db->update('user_menu');
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu Updated</div>');
             redirect('menu');
         }
@@ -93,8 +92,14 @@ class Menu extends CI_Controller
 
     public function delete($id)
     {
-        $this->Menu_model->deleteMenu($id);
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu Deleted</div>');
-        redirect('menu');
+
+
+        if ($this->db->delete('user_menu', array('id' => $id))) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Menu Deleted!!!</div>');
+            redirect('menu');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed delete menu</div>');
+            redirect('menu');
+        }
     }
 }

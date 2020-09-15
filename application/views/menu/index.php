@@ -29,8 +29,8 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $m['menu']; ?></td>
                             <td>
-                                <a href="" class="badge badge-success" data-toggle="modal" data-target="#editMenuModal">edit</a>
-                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMenuModal">delete</a>
+                                <a href="" class="badge badge-success" data-toggle="modal" data-target="#editMenuModal" data-menu="<?= $m['menu']; ?>" data-id="<?= $m['id']; ?>">edit</a>
+                                <a href="menu/delete/<?= $m['id']; ?>" class="badge badge-danger" onclick="return confirm('hapus?')">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -87,40 +87,16 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url() ?>menu/edit/<?= $m['id']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?= $m['id']; ?>">
+            <form action="<?= base_url('menu/edit') ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="id">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="menu" name="menu" value="<?= $m['menu']; ?>">
+                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal delete -->
-<div class="modal fade" id="deleteMenuModal" tabindex="-1" role="dialog" aria-labelledby="deleteMenuModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteMenuModalLabel">Delete Menu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= base_url() ?>menu/delete/<?= $m['id']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?= $m['id']; ?>">
-                <div class="modal-body">
-                    <p>Apakah anda yakin?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Delete</button>
                 </div>
             </form>
         </div>
