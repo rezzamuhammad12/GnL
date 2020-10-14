@@ -35,7 +35,7 @@ class Gnl extends CI_Controller
                 'deskripsi' => $this->input->post('deskripsi'),
             ];
             $this->db->insert('gnl_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New sub menu added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New video added!</div>');
             redirect('gnl');
         }
     }
