@@ -28,8 +28,8 @@
                             <td><?= $r['role']; ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
-                                <!-- <a href="" class="badge badge-success">edit</a>
-                            <a href="" class="badge badge-danger">delete</a> -->
+                                <!-- <a href="" class="badge badge-success">edit</a> -->
+                                <a href="<?= base_url('admin/deleteRole'); ?>/<?= $r['id']; ?>" class="badge badge-danger" onclick="return confirm('Yakin hapus &quot;<?= $r['role']; ?>&quot; ?')">delete</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
